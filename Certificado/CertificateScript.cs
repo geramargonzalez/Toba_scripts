@@ -26,7 +26,7 @@ public class CertificateScript : MonoBehaviour
     void Start()
     {
         
-        data = DataCtrl.instance.data;
+       // data = DataCtrl.instance.data;
         isProcessing = false;
         //nivel = data.nivel-1;
         datos = 30;

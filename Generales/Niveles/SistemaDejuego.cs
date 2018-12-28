@@ -260,7 +260,7 @@
                     ui.txtPuntos.text = "0";
                     ui.txtBones.text = "0";
                     
-                    //Marco todo a nuevo
+                    //MARCO TODO DE NUEVO
                     MarcarOrquitosEnEscena();
                     MarcarCollectibles();
                     RestaurarVidas(); 
