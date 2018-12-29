@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class Loading : MonoBehaviour {
 
     List<string> descripciones = new List<string>();
-    public List<Image> imagenes = new List<Image>();
+    //public List<Image> imagenes = new List<Image>();
+    public GameObject[] imagenes;
 
     public Text txtDesc;
 
 	// Use this for initialization
 	void Start () {
+
 
         CargarTextos();
         ElegirTextoDescripcion();
@@ -56,14 +58,25 @@ public class Loading : MonoBehaviour {
         descripciones.Add("El resultado de la multiplicación se denomina “producto”.");
         descripciones.Add("Las tablas de multiplicación también se llaman la “Tabla de Pitágoras” ya que fue inventada por el matemático y filósofo Pitágoras en Grecia..");
 
+        descripciones.Add("La suma y la multiplicación sí tienen la propiedad asociativa. Aunque se alteren el orden de los numeros el resultado es el mismo");
+        descripciones.Add("Cambiar la forma de asociar los números en la resta sí varía el resultado. Por lo tanto la resta no tiene la propiedad asociativa. ");
+    
+    
+    
+    
     }
 
     public void ElegirTextoDescripcion(){
         
         float random = Random.Range(0f, (float)descripciones.Count-1);
         txtDesc.text = descripciones[(int)random];
-    
+        random =  Random.Range(0f, (float)imagenes.Length-1);
+        imagenes[(int)random].SetActive(true);
+       
+
     }
+
+  
 
 
 

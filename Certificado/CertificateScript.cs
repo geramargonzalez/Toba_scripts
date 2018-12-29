@@ -26,11 +26,11 @@ public class CertificateScript : MonoBehaviour
     void Start()
     {
         
-       // data = DataCtrl.instance.data;
+        data = DataCtrl.instance.data;
         isProcessing = false;
-        //nivel = data.nivel-1;
-        datos = 30;
-        nivel = datos;
+        nivel = data.nivel-1;
+
+
         msjInicio.text = "Superaste los " + nivel + " niveles del juego";
        
 
@@ -46,9 +46,9 @@ public class CertificateScript : MonoBehaviour
         AudioCtrl.instance.GameOverMultiplo(this.gameObject.transform);
 
         infoCert.text = "Certficamos que el estudiante " + nombre.text + " " + apellido.text + " supero los  " +
-            nivel + " niveles ";
+            nivel + " niveles del juego ";
 
-        infoCert2.text = " y resolvio " + nivel + " operaciones matemáticas";
+        infoCert2.text = " y resolvio las " + data.totalCuentas + " operaciones matemáticas.";
 
     }
 

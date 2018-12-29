@@ -50,6 +50,6 @@
     	public int cantAnimalesConvertidos;
 
 
-       public int totalCuentas = 0;
+       public int totalCuentas = 87;
 
 }

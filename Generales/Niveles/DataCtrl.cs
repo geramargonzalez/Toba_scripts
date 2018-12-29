@@ -429,7 +429,6 @@ public class DataCtrl : MonoBehaviour {
 
         data.yaJugo = false;
 
-
         data.posActualEnemigo = 0;
 
 
@@ -468,11 +467,12 @@ public class DataCtrl : MonoBehaviour {
 
         int cantEnem = 0;
 
+
         if (data.nivel == 0)
         {
 
             cantEnem = 8;
-            data.totalCuentas += cantEnem;
+           
 
 
         }
@@ -480,21 +480,20 @@ public class DataCtrl : MonoBehaviour {
         {
 
             cantEnem = 7;
-            data.totalCuentas += cantEnem;
 
         }
         if (data.nivel == 2)
         {
 
             cantEnem = 9;
-            data.totalCuentas += cantEnem;
+
         }
 
         if (data.nivel == 3)
         {
 
             cantEnem = 8;
-            data.totalCuentas += cantEnem;
+           
 
         }
 
@@ -503,28 +502,28 @@ public class DataCtrl : MonoBehaviour {
         {
 
             cantEnem = 13;
-            data.totalCuentas += cantEnem;
+           
 
         }
         if (data.nivel == 5)
         {
 
             cantEnem = 12;
-            data.totalCuentas += cantEnem;
+
 
         }
         if (data.nivel == 6)
         {
 
             cantEnem = 14;
-            data.totalCuentas += cantEnem;
+           
 
         }
         if (data.nivel == 7)
         {
 
             cantEnem = 16;
-            data.totalCuentas += cantEnem;
+
 
         }
 
@@ -538,6 +537,7 @@ public class DataCtrl : MonoBehaviour {
     {
 
         int cantEnem = 0;
+
 
         if (data.nivel == 0)
         {
