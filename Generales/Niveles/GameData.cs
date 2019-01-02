@@ -14,10 +14,12 @@
     	public int nivel;
         public int nivelMaximo;
     	public int bones;
+        
 
     	// Cantidad de Trolls
     	public int cantidadTrolls;
     	public int numParaPromedio;
+        public int cantidadAnimXpantalla;
 
 
     	// Tiempo 
@@ -49,7 +51,7 @@
         public bool okTutOrquito;
     	public int cantAnimalesConvertidos;
 
-
+       
        public int totalCuentas = 87;
 
 }

@@ -572,6 +572,7 @@ public class PlayerControllerAdvanced : MonoBehaviour {
              other.gameObject.tag == "OrquitoTutorial")
         {
             if(unaSolavez){
+               
                 unaSolavez = false;
                 AudioCtrl.instance.PlayerDied(gameObject.transform);
                 SistemaDejuego.instance.PlayerDiedAnimaton(gameObject);
@@ -580,8 +581,11 @@ public class PlayerControllerAdvanced : MonoBehaviour {
 
         }
 
-       
+  
     }
+
+
+
 
     /// <summary>
     ///      Mobile Part

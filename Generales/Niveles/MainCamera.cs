@@ -18,7 +18,7 @@ public class MainCamera : MonoBehaviour {
 		objetivoCamara = GameObject.Find ("DogAdvanced").transform;
 
         // Sacarle los comentarios 
-         if(DataCtrl.instance.data.nivel != 4){
+        if(DataCtrl.instance.data.nivel >= 6 || DataCtrl.instance.data.nivel == 2){
 
             if (SistemaDejuego.instance.posicionXActual < 3283.7)
             {

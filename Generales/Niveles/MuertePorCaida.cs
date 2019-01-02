@@ -10,6 +10,8 @@ public class MuertePorCaida : MonoBehaviour {
 	MainCamera mainCamera;
     bool soloUnavez;
 
+    //GameObject dog;
+
 
 	void Start () {
 		
@@ -17,12 +19,13 @@ public class MuertePorCaida : MonoBehaviour {
 		mainCamera = camera.GetComponent<MainCamera> ();
         soloUnavez = false;
 
+
 	}
 
 
 	void OnTriggerEnter2D(Collider2D other) {
 		
-		if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Animales") {
 
             if(!soloUnavez){
                 mainCamera.QuitarYCamera();
@@ -32,6 +35,8 @@ public class MuertePorCaida : MonoBehaviour {
 			
            
 		}
+
+
 	}
 }
 

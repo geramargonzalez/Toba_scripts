@@ -78,7 +78,6 @@ public class EstadisticasCtrl : MonoBehaviour {
         nivel = new GameObject[data.niveles.Length];
         nivelesText = new Text[data.niveles.Length];
 
-        //Debug.Log(data.niveles.Length);
         for (int i = 0; i < data.niveles.Length-1; i++)
         {
 
@@ -100,11 +99,8 @@ public class EstadisticasCtrl : MonoBehaviour {
 
 			aciertos[i] = GameObject.Find ("aciertos" + i);
 			aciertostxt[i] = aciertos[i].GetComponent<Text> ();
-           
-           
+  
 		}
-
-       
 
 	}
 
@@ -136,7 +132,6 @@ public class EstadisticasCtrl : MonoBehaviour {
 				fallostxt [i].text = data.niveles [i].fallosPorNivel.ToString();
 
 				aciertostxt [i].text = data.niveles [i].aciertosPorNivel.ToString();
-
 
 			} 
 		}

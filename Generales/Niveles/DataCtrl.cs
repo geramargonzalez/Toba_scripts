@@ -228,28 +228,28 @@ public class DataCtrl : MonoBehaviour {
         if (data.nivel == 0)
         {
 
-            data.tiempoActual = 600;
+            data.tiempoActual = 300;
 
 
         }
         else if (data.nivel == 1)
         {
 
-            data.tiempoActual = 500;
+            data.tiempoActual = 250;
 
 
         }
         else if (data.nivel == 2)
         {
 
-            data.tiempoActual = 450;
+            data.tiempoActual = 200;
 
 
         }
         else if (data.nivel >= 4)
         {
 
-            data.tiempoActual = 400;
+            data.tiempoActual = 300;
 
 
         }
@@ -562,7 +562,7 @@ public class DataCtrl : MonoBehaviour {
         if (data.nivel == 4)
         {
 
-            cantEnem = 21;
+            cantEnem = 23;
 
         }
 
@@ -621,6 +621,53 @@ public class DataCtrl : MonoBehaviour {
         data.niveles[levelNumber].unlocked = true;
     }
   
+    public int ConvertirCantidadAnimales()
+    {
 
+        int cantAnim = 0;
+
+
+        if (data.nivel == 0)
+        {
+            
+            cantAnim = 8;
+
+
+        }
+        if (data.nivel == 1)
+        {
+
+            cantAnim = 13;
+
+        }
+        if (data.nivel == 2)
+        {
+
+            cantAnim = 11;
+
+        }
+
+        if (data.nivel == 4)
+        {
+
+            cantAnim = 13;
+
+        }
+
+        if (data.nivel == 6)
+        {
+
+            cantAnim = 10;
+
+        }
+        if (data.nivel == 7)
+        {
+
+            cantAnim = 17;
+
+        }
+
+        return cantAnim;
+    }
 
 }

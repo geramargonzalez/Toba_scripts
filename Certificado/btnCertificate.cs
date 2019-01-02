@@ -34,15 +34,15 @@ public class btnCertificate : MonoBehaviour {
   
     public void BtnStatus()
     {
-
+        
         GameData data = DataCtrl.instance.data;
 
         // Getting the local status of button IsUnlocked (levelNumber);
         bool unLocked = data.niveles[levelNumber].unlocked;
         int starsawarded = data.niveles[levelNumber].bonesStars;
-        DataCtrl.instance.SaveData(data);
 
-     
+        Debug.Log(unLocked);
+
         if(unLocked){
 
             //Agrego la funcionalidad de Click

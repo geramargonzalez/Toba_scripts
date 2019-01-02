@@ -29,8 +29,6 @@ public class CertificateScript : MonoBehaviour
         data = DataCtrl.instance.data;
         isProcessing = false;
         nivel = data.nivel-1;
-
-
         msjInicio.text = "Superaste los " + nivel + " niveles del juego";
        
 

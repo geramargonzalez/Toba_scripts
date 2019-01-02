@@ -192,6 +192,8 @@
 
                     gData.cantidadTrolls = DataCtrl.instance.cantidadEnemigoPorNivel();
 
+                    gData.cantidadAnimXpantalla = DataCtrl.instance.ConvertirCantidadAnimales();
+
         			gData.numParaPromedio = gData.cantidadTrolls;
 
         		    gData.bonesBool = new bool[60];
@@ -264,7 +266,6 @@
                     MarcarOrquitosEnEscena();
                     MarcarCollectibles();
                     RestaurarVidas(); 
-         
         	
             }
 
@@ -911,6 +912,7 @@
                             //Desactiva los botones
             				DesactivarBotonRespuestas ();
             				gData.cantidadTrolls--;
+
                             
             				ui.txtCantEnemigos.text = gData.cantidadTrolls.ToString ();
             				SumarAciertosPorCuentas ();
@@ -920,6 +922,8 @@
                             
                             //Setea el resultado en el enemy
             				gnScript.RecibirResultado (resulString);
+
+                            
             				
             			   if(gData.cantidadTrolls == 1){
             					
@@ -934,6 +938,8 @@
             			    }
                         }
 
+
+                
            
                 public void LevelComplete(){
 
@@ -1613,12 +1619,11 @@
 
         	public void PantallaTerminada(){
         		
-        		if (gData.cantidadTrolls == 0) {
+                if (gData.cantidadTrolls == 0 && gData.cantidadAnimXpantalla == 0) {
 
-                    
+                   
                     LevelComplete();
-                    
-                    
+
                     //Revisar codigo
         			gData.vidas = 5;
         			 
@@ -1635,12 +1640,9 @@
         		
         		}
 
-        	}
+        	
+            }
         		
-
-        	/// <summary>
-        	///     Metodos para cambiar de escena
-        	/// </summary>
         	public void Cambiarescena(){
         		StartCoroutine (CambioDePantalla());
         	}
@@ -2115,9 +2117,51 @@
             
         		ui.txtMsjgrlHabilidad.fontSize = 100;
         		ui.txtMsjgrlHabilidad.color = Color.red;
-        		ui.txtMsjgrlHabilidad.text = "Te quedan: " + gData.cantidadTrolls;
+
+                if(gData.cantidadTrolls > 0){
+                    ui.txtMsjgrlHabilidad.text = "Te quedan: " + gData.cantidadTrolls;
+                } else {
+                    ui.txtMsjgrlHabilidad.fontSize = 70;
+                    ui.txtMsjgrlHabilidad.text = "Te quedan: " + gData.cantidadAnimXpantalla + " animales para convertir";
+                }
+        		
         		StartCoroutine(mostrarHabilidad());
         	
+            }
+
+            public void MsjAnimalConvetido()
+            {
+                 if(gData.cantidadAnimXpantalla > 0){
+                    
+                    gData.cantidadAnimXpantalla--;
+
+                    ui.txtMsjgrlHabilidad.fontSize = 70;
+                    ui.txtMsjgrlHabilidad.color = Color.green;
+                    ui.txtMsjgrlHabilidad.text = "Te quedan: " + gData.cantidadAnimXpantalla + " animales por convertir";
+
+                    if (gData.cantidadAnimXpantalla > 1)
+                    {
+
+                        ui.txtMsjgrlHabilidad.text = "Te quedan: " + gData.cantidadAnimXpantalla + " animales por convertir";
+
+                    }
+                    else if (gData.cantidadAnimXpantalla == 1)
+                    {
+
+                        ui.txtMsjgrlHabilidad.text = "Te queda solamente un animal por convertir";
+
+                    }
+                    else if (gData.cantidadAnimXpantalla == 0)
+                    {
+
+                        ui.txtMsjgrlHabilidad.text = "Salvaste por pantalla necesarios";
+
+                    }
+                    StartCoroutine(mostrarHabilidad());
+                        
+                }
+                
+
             }
 
 

@@ -4,7 +4,7 @@ using Mono.Data.Sqlite;
 using System.Data;
 using System;
 using UnityEngine;
-
+using System.IO;
 
 public class BD 
 {
@@ -92,8 +92,30 @@ public class BD
     public void Connection()
     {
 
-        // La direccion donde esta nuestra base de datos
-		conn = "URI=file:" + Application.dataPath + "/Myassets/Plugins/tobaBd.db";
+        // conn = "URI=file:" + Application.dataPath + "/Myassets/Plugins/tobaBd.db";
+		
+
+         if (Application.platform != RuntimePlatform.Android)
+        {
+
+            conn = "URI=file:" + Application.dataPath + "/Myassets/Plugins/tobaBd.db";
+        }
+        else
+        {
+
+            conn = Application.persistentDataPath + "/Myassets/Plugins/tobaBd.db";
+
+            if (!File.Exists(conn))
+            {
+                WWW load = new WWW("jar:file://" + Application.dataPath + "!/assets/" + "tobaBd.db");
+
+                while (!load.isDone) { }
+
+                File.WriteAllBytes(conn, load.bytes);
+            }
+        }
+
+
         dbconn = (IDbConnection)new SqliteConnection(conn);
 
     }
