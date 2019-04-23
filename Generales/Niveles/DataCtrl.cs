@@ -23,12 +23,8 @@ public class DataCtrl : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 
 		} 
-
-
 		bf = new BinaryFormatter ();
 		dataFilePath = Application.persistentDataPath + "/game.dat";
-
-      
 	}
 
 
@@ -58,9 +54,7 @@ public class DataCtrl : MonoBehaviour {
 
 
 	void OnEnable(){
-        
         CheckDB();
-	
 	}
 
 	void OnDisable(){
@@ -148,7 +142,7 @@ public class DataCtrl : MonoBehaviour {
 
 			}
 
-            if(devMode){
+            //if(devMode){
 
                 //Pregunta si es una aplicacion movil
                 //Debug.Log(" Entro al modo dev");
@@ -157,7 +151,7 @@ public class DataCtrl : MonoBehaviour {
                     CopyDB ();
 
                 } 
-            }
+           // }
 
             RefreshData();
 
@@ -196,21 +190,25 @@ public class DataCtrl : MonoBehaviour {
 
 
 	public void SetearNumeroNivel(){
-
         SetearNivelACtual();
-	
 	}
-
-
 
     public void SalvarNiveles(Nivel[] niveles)
     {
-
         dataBase.GuardarNiveles(niveles);
-        
+    }
+
+    public void guardarFallosYAciertos(Nivel[] niveles)
+    {
+        foreach(Nivel nivel in niveles){
+            dataBase.guardarFallosYAciertos(nivel);
+        }
 
     }
 
+    public void EditarEstadoNivel(Nivel nivel){
+        dataBase.EditarEstadoNivel(nivel, 1);
+    }
 
     // ***  METODOS *** //
     public void GuardarPosicionInicial()
@@ -220,50 +218,32 @@ public class DataCtrl : MonoBehaviour {
         data.z = 0f;
     }
 
-
     // Setea el tiempo de cada Pantalla
     public float ResetTime()
     {
         
         if (data.nivel == 0)
         {
-
             data.tiempoActual = 300;
-
-
         }
         else if (data.nivel == 1)
         {
-
             data.tiempoActual = 250;
-
-
         }
         else if (data.nivel == 2)
         {
-
             data.tiempoActual = 200;
-
-
         }
         else if (data.nivel >= 4)
         {
-
             data.tiempoActual = 300;
-
-
         }
-
-
         return data.tiempoActual;
-
     }
 
     // Sube el nivel del juego.
     public void subirNivel()
     {
-       
-
         //Compara el nivel alcanzado con el mayor alcanzado, ya que este ultimo es el que define el mayor alcanzado. 
         //Tiene que ser nivelMaximo+1 para que suba el nivel
         if((data.nivel + 1) > data.nivelMaximo){
@@ -273,16 +253,10 @@ public class DataCtrl : MonoBehaviour {
             data.nivelMaximo = data.nivel;
             data.yaJugo = false;
             data.niveles[data.nivelMaximo].unlocked = true;
-       
             // Si no es mayor deberia comparar los valores anteriores y si son mejores, actualizarlos.
-        } else {
-            
-        
         }
-
-        //Imprimo todo en la base de datos
+        //Imprimo  en la base de datos
         SaveData(data);
-
     }
 
 
@@ -329,14 +303,24 @@ public class DataCtrl : MonoBehaviour {
 
             if (data.niveles[i].nivel <= data.nivel)
             {
-
+               
                 data.niveles[i].unlocked = true;
+
+                data.niveles[i].status = 0;
+
+                data.niveles[i].cantVecesJugadas = 0;
+
+                data.niveles[i].bonesStars = 0;
+
+                data.niveles[i].puntosPorNivel = 0;
+
+
 
                 data.niveles[i].aciertosPorNivel = 0;
 
                 data.niveles[i].fallosPorNivel = 0;
 
-                data.niveles[i].bonesStars = 0;
+    
 
                 data.niveles[i].fallosMultiplicacion = 0;
 
@@ -362,6 +346,12 @@ public class DataCtrl : MonoBehaviour {
             {
 
                 data.niveles[i].unlocked = false;
+
+                data.niveles[i].cantVecesJugadas = 0;
+
+                data.niveles[i].status = 0;
+
+                data.niveles[i].puntosPorNivel = 0;
 
                 data.niveles[i].bonesStars = 0;
 
@@ -423,11 +413,41 @@ public class DataCtrl : MonoBehaviour {
 
         data.fallos = 0;
 
+        data.promedioGrl = 0;
+
+        data.cantidadOperacionesPorNivel = 0;
+
+        data.sumasGrl = 0;
+
+        data.restaGrl = 0;
+
+        data.divisionGrl = 0;
+
+        data.aciertosMultiGrl = 0;
+
+        data.aciertosGrl = 0;
+
+        data.sumasFallosGrl = 0;
+
+        data.restaFallosGrl = 0;
+
+        data.divisionFallosGrl = 0;
+
+        data.multiFallosGrl = 0;
+
+        data.fallosGrl = 0;
+
         UnLockedNivel();
 
         data.tiempoActual = ResetTime();
 
         data.yaJugo = false;
+
+        //data.primeraVez = true;
+
+        //data.tutorial = true;
+
+        data.audioOn = true;
 
         data.posActualEnemigo = 0;
 
@@ -451,6 +471,8 @@ public class DataCtrl : MonoBehaviour {
             gdata.tiempoActual = ResetTime();
 
             gdata.yaJugo = false;
+
+
 
             gdata.posActualEnemigo = 0; 
         }

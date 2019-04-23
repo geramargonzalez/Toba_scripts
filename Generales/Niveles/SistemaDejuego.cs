@@ -109,17 +109,13 @@
 
         	// Para recuperar vida
         	int recoveryLife;
-
         	int enemigosActivos;
         	int promedioTotalDeOpeciones;
-
-
 
         	//OPERACIONES CONCRETADAS Y QUE SE CREE UN NUEVO ENEMIGO
         	bool operacionConcretada;
         	bool crearnuevoTroll;
             public bool radiusEnemigo = false;
-
 
         	//Orquitos y Animales
             GameObject[] posOrcosAnimales;
@@ -185,13 +181,19 @@
         	public void RefreshUI () {
 
         		if (gData.yaJugo == false) {
-
+            
                     Time.timeScale = 1f;
 
                     DataCtrl.instance.GuardarPosicionInicial ();
 
+                    gData.promedioGrl = 0;
+
                     gData.cantidadTrolls = DataCtrl.instance.cantidadEnemigoPorNivel();
 
+                    SetearOperacionesGenerales();
+
+                    gData.cantidadOperacionesPorNivel = 0;
+                    
                     gData.cantidadAnimXpantalla = DataCtrl.instance.ConvertirCantidadAnimales();
 
         			gData.numParaPromedio = gData.cantidadTrolls;
@@ -200,13 +202,16 @@
 
                     gData.orcosPorAnimales = new bool[DataCtrl.instance.cantidadOrquitosPorNivel()];
 
-                    gData.okTutOrquito = false;
-
+                    if(gData.primeraVez){
+                        gData.okTutOrquito = false;
+                        gData.tutorial = true;
+                    }
+                   
         			MarcarOrquitosEnEscena ();
 
         			MarcarCollectibles ();
-
-                    
+                
+                    gData.primeraVez = false;
 
         		} 
 
@@ -227,24 +232,15 @@
         		GenerarEnemigosPorAcierto ();
 
         		if(timeLeft > 0 && timerOn){
-
         			UpdateTime();
-
-        		}
-        			    			
+        		}    			
                 if(radiusEnemigo){
-
                     radiusEnemigo = false;
                     OperacionAritmetica();
                }
-
         	}
-
-
         	void OnEnable(){
-
         		RefreshUI ();
-
         	}
 
             void OnDisable()
@@ -255,17 +251,17 @@
 
         	public void ResetData () {
 
-                    // Seteo el nivel actual si nunca jugo.
-                    DataCtrl.instance.ResetLevelGameOver(gData);
+            // Seteo el nivel actual si nunca jugo.
+            DataCtrl.instance.ResetLevelGameOver(gData);
 
-                    //Guardo solamente la GameData. No toco la base de datos.
-                    ui.txtPuntos.text = "0";
-                    ui.txtBones.text = "0";
-                    
-                    //MARCO TODO DE NUEVO
-                    MarcarOrquitosEnEscena();
-                    MarcarCollectibles();
-                    RestaurarVidas(); 
+            //Guardo solamente la GameData. No toco la base de datos.
+            ui.txtPuntos.text = "0";
+            ui.txtBones.text = "0";
+            
+            //MARCO TODO DE NUEVO
+            MarcarOrquitosEnEscena();
+            MarcarCollectibles();
+            RestaurarVidas(); 
         	
             }
 
@@ -437,7 +433,9 @@
 
         			gData.posActualEnemigo = gData.posActualEnemigo + 1;
 
-        			pos = gData.posActualEnemigo;	
+        			pos = gData.posActualEnemigo;
+
+                    //Debug.Log("La posicion actual es " +  gData.posActualEnemigo);
 
         			if (pos <= posicionesEnemigos.Length - 1) {
 
@@ -510,7 +508,7 @@
         		for (int i = 0; i < posicionesEnemigos.Length; i++) {
         			
 
-        			restaDePosiciones =  posicionesEnemigos [i].transform.position.x - posEnemigoActual.transform.position.x;
+        			restaDePosiciones =  posicionesEnemigos[i].transform.position.x - posEnemigoActual.transform.position.x;
 
         	
         			if ( (int)restaDePosiciones >= 0  && (int)restaDePosiciones <= 50) {
@@ -540,6 +538,7 @@
         		
         		} else {
 
+                    
         			for (int i = 0; i < gData.operaRealizadas.Length; i++) {
 
         				if(!gData.operaRealizadas[i]){
@@ -551,7 +550,7 @@
         			}
         		
         		}
-
+                Debug.Log("La cantidad de enemigos activos es " + enemigosActivos);
         		gData.cantidadTrolls = enemigosActivos;
         		ui.txtCantEnemigos.text = gData.cantidadTrolls .ToString();
         		gData.numParaPromedio = gData.cantidadTrolls;
@@ -891,44 +890,31 @@
                 
                 public void ResultadoOperacion(){
 
-                		//Deja la huella que ya jugo.
-                		if(!gData.yaJugo){
+                        gData.cantidadOperacionesPorNivel++;
 
-                			gData.yaJugo = true;
-                		
-                		}
-
-            				if(attack){
-
+                    		//Deja la huella que ya jugo.
+                            if(!gData.yaJugo){
+                    			gData.yaJugo = true;
+                    		}
+                    	   if(attack){
             					attack = false;
-
             				}
 
             				AumentarJump();
-
                             //Borra las preguntas
             				LimpiarRespuestas ();
-
                             //Desactiva los botones
             				DesactivarBotonRespuestas ();
             				gData.cantidadTrolls--;
-
-                            
             				ui.txtCantEnemigos.text = gData.cantidadTrolls.ToString ();
             				SumarAciertosPorCuentas ();
+                            SeteoOperacionesPorNivel();
             				sumarPuntos (Item.Enemigos);
             				OperacionesAritmeticasCompletadas();
-                           
-                            
                             //Setea el resultado en el enemy
             				gnScript.RecibirResultado (resulString);
-
-                            
-            				
             			   if(gData.cantidadTrolls == 1){
-            					
-            				    QuedaUnSoloTroll ();
-
+            				  QuedaUnSoloTroll ();
             				}
 
             				if(gData.cantidadTrolls == 0){
@@ -938,14 +924,13 @@
             			    }
                         }
 
-
-                
-           
                 public void LevelComplete(){
-
+                    // Cambio el estado del nivel a 1, para que se sepa que esta completado;
+                    DataCtrl.instance.EditarEstadoNivel(gData.niveles[gData.nivel]);
                     fallosDelNivel = gData.fallos;
+                    gData.niveles[gData.nivel].promedio = gData.promedioGrl;
+                    SeteoOperacionesPorNivel();
                     DataCtrl.instance.subirNivel();
-
                 }
 
             	public bool obtenerAttack(){
@@ -965,25 +950,17 @@
             	}
 
             	public void pasarNumeroDerecha(){
-                    
             		numero1 = GeneradorNumeroRandom();
-                   
-
             	}
 
             	public void pasarNumeroIzquierda(){
-
             		numero2 = GeneradorNumeroRandomIzquierda();
-                    
             	}
 
             	// Primero eligo el signo
             	public void ObtenerSigno(){
-            		
                     // Genero la operacion a realizar
             		signo = GenerarSignoUIRandom ();
-                   
-
             	}
 
             	// Segundo realizo la operacion 
@@ -1403,6 +1380,7 @@
         		gData.fallos++;
         		txtFallos ();
         		SumarFallosPorCuentas ();
+                SeteoOperacionesPorNivel();
         		DisminuirJump ();
 
         		if(gData.fallos == 5){
@@ -1422,28 +1400,42 @@
 
         	}
 
+
+            public void SetearOperacionesGenerales(){
+                gData.aciertosGrl = 0;
+                gData.aciertosMultiGrl = 0;
+                gData.sumasGrl = 0;
+                gData.restaGrl = 0;
+                gData.divisionGrl = 0;
+                gData.fallosGrl = 0;
+                gData.multiFallosGrl = 0;
+                gData.sumasFallosGrl = 0;
+                gData.restaFallosGrl = 0;
+                gData.divisionFallosGrl = 0;
+            }
+
         	public void SumarAciertosPorCuentas(){
 
-        		gData.niveles [gData.nivel].aciertosPorNivel++;
+                gData.aciertosGrl++;
 
         		if(signo == 0){
 
-        			gData.niveles[gData.nivel].aciertosMultiplicacion++;
+                gData.aciertosMultiGrl++;
 
         		} else if(signo == 1){
 
-        			gData.niveles[gData.nivel].aciertosSuma++;
+                 gData.sumasGrl++;
 
         		}
 
         		else if(signo == 2){
 
-        			gData.niveles[gData.nivel].aciertosResta++;
+                    gData.restaGrl++;
         		}
 
         		else if(signo == 3){
 
-        			gData.niveles[gData.nivel].aciertosDivision++;
+                 gData.divisionGrl++;
 
 
         		}
@@ -1453,38 +1445,58 @@
 
         	public void SumarFallosPorCuentas (){
 
-        		gData.niveles [gData.nivel].fallosPorNivel++;
+                gData.fallosGrl++;
 
         		if(signo == 0){
 
-        			gData.niveles[gData.nivel].fallosMultiplicacion++;
+                gData.multiFallosGrl++;
 
         		} else if(signo == 1){
 
-        			gData.niveles[gData.nivel].fallosSuma++;
+                gData.sumasFallosGrl++;
 
         		}
 
         		else if(signo == 2){
 
-        			gData.niveles[gData.nivel].fallosResta++;
+                    gData.restaFallosGrl++;
         		}
 
         		else if(signo == 3){
 
-        			gData.niveles[gData.nivel].fallosDivision++;
+                gData.divisionFallosGrl++;
 
         		}
 
         	
         	}
 
-        	public void ReciboTiempoParaPromedios(float tiempoOperacion){
 
-               
-        		gData.niveles[gData.nivel].promedio += (int)tiempoOperacion;
-                
-               
+            public void SeteoOperacionesPorNivel()
+            {
+
+                    gData.niveles[gData.nivel].aciertosPorNivel = gData.aciertosGrl;
+                    gData.niveles[gData.nivel].aciertosMultiplicacion = gData.aciertosMultiGrl;
+                    gData.niveles[gData.nivel].aciertosSuma = gData.sumasGrl;
+                    gData.niveles[gData.nivel].aciertosResta = gData.restaGrl;
+                    gData.niveles[gData.nivel].aciertosDivision = gData.divisionGrl;
+                    gData.niveles[gData.nivel].fallosPorNivel = gData.fallosGrl;
+                    gData.niveles[gData.nivel].fallosMultiplicacion = gData.multiFallosGrl;
+                    gData.niveles[gData.nivel].fallosSuma = gData.sumasFallosGrl;
+                    gData.niveles[gData.nivel].fallosResta = gData.restaFallosGrl;
+                    gData.niveles[gData.nivel].fallosDivision = gData.divisionFallosGrl;
+                    DataCtrl.instance.guardarFallosYAciertos(gData.niveles);
+
+              
+            }
+
+
+         
+
+        	public void ReciboTiempoParaPromedios(float tiempoOperacion){
+                gData.promedioGrl += (int)tiempoOperacion;
+                int numpro = gData.numParaPromedio - gData.cantidadTrolls;
+                gData.promedioGrl = gData.promedioGrl/numpro;
         	}
 
 
@@ -1623,6 +1635,7 @@
 
                    
                     LevelComplete();
+           
 
                     //Revisar codigo
         			gData.vidas = 5;
@@ -2248,7 +2261,6 @@
         		
                 ui.panelPausa.gameObject.SetActive(true);
         		ui.panelPausa.gameObject.GetComponent<RectTransform> ().DOAnchorPosY (0, 0.7f, false);
-
         		PausarPantalla ();
 
         	}
@@ -2256,9 +2268,10 @@
 
         	public void PausaHide(){
             
-                TimeToScale();
+                //TimeToScale();
         		ui.panelPausa.gameObject.GetComponent<RectTransform> ().DOAnchorPosY (5000f, 0.7f, false);
-     
+                TimeToScale();
+                Debug.Log(" Esta en " + Time.timeScale);
         	}
 
 

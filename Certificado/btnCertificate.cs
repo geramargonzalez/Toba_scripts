@@ -40,15 +40,11 @@ public class btnCertificate : MonoBehaviour {
         // Getting the local status of button IsUnlocked (levelNumber);
         bool unLocked = data.niveles[levelNumber].unlocked;
         int starsawarded = data.niveles[levelNumber].bonesStars;
-
-        Debug.Log(unLocked);
+        ///Debug.Log(unLocked);
 
         if(unLocked){
-
             //Agrego la funcionalidad de Click
             btn.onClick.AddListener(LoadScene);
-
-        
         } else {
             
             //Show the locked button image

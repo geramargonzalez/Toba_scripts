@@ -8,6 +8,7 @@ using System;
 public class AudioEffects{
 
     public AudioClip alarmTimeOut;
+    public AudioClip monedaSound;
     //public AudioClip aciertoA;
    // public AudioClip winA;
    // public AudioClip loseA;

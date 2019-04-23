@@ -15,6 +15,10 @@ public class Nivel{
 	public int nivel;
 	public bool unlocked;
 	public int bonesStars;
+    public int cantVecesJugadas;
+    public int puntosPorNivel;
+    public int status;
+    public int ultimoEnemigo;
 
     //Contador global y por cada cuenta aritmetica
     public int promedio;
@@ -34,7 +38,11 @@ public class Nivel{
 	public int aciertosDivision;
 
 
-    public Nivel (int pnivel, bool pUnlocked, int pbone, int ppromedio,int pfallosPorNivel,int paciertosPorNivel){
+
+
+    public Nivel (int pnivel, bool pUnlocked, int pbone, int ppromedio,int pfallosPorNivel,int paciertosPorNivel,int apuntosPorNivel,int pcantVecesJugadas,
+                  int pfallosMultiplicacion,int pfallosSuma,int pfallosResta, int pfallosDivision,int paciertosMultiplicacion, int paciertosSuma,int paciertosResta,
+                 int paciertosDivision,int pUltimoEnemigo){
 
         nivel = pnivel;
         unlocked = pUnlocked;
@@ -42,7 +50,18 @@ public class Nivel{
         promedio = ppromedio;
         fallosPorNivel = pfallosPorNivel;
         aciertosPorNivel = paciertosPorNivel;
-    
+        puntosPorNivel = apuntosPorNivel;
+        cantVecesJugadas = pcantVecesJugadas;
+        fallosMultiplicacion = pfallosMultiplicacion;
+        fallosSuma = pfallosSuma;
+        fallosResta = pfallosResta;
+        fallosDivision = pfallosDivision;
+        aciertosMultiplicacion = paciertosMultiplicacion;
+        aciertosSuma = paciertosSuma;
+        aciertosResta = paciertosResta;
+        aciertosDivision = paciertosDivision;
+        ultimoEnemigo = pUltimoEnemigo;
+
     }
 
  

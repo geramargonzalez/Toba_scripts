@@ -18,8 +18,6 @@ public class MuertePorCaida : MonoBehaviour {
 		camera = GameObject.Find("Main Camera");
 		mainCamera = camera.GetComponent<MainCamera> ();
         soloUnavez = false;
-
-
 	}
 
 

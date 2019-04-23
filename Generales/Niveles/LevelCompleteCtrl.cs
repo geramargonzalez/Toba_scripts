@@ -18,13 +18,13 @@ public class LevelCompleteCtrl : MonoBehaviour {
 	public Text txtFallos;
 
 
-		   int promedio;
-		   int levelNumber;
-		   int score;
-		   int scoreForThreeStars;
-		   int scoreForTwoStars;
-		   int scoreForOneStars;
-		   int scoreForNextLevel;
+   int promedio;
+   int levelNumber;
+   int score;
+   int scoreForThreeStars;
+   int scoreForTwoStars;
+   int scoreForOneStars;
+   int scoreForNextLevel;
 
 
 	public float animStarsLevel;
@@ -38,11 +38,7 @@ public class LevelCompleteCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        // SistemaDejuego.instancia.
-
-
         data = DataCtrl.instance.data;
-
 
 		scoreForThreeStars = 3;
 		scoreForTwoStars = 4;

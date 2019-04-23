@@ -61,12 +61,11 @@ public class MonedasScript : MonoBehaviour {
 
 		if (other.gameObject.tag == "Player") {
 
-			audioCoins.Play();
+            AudioCtrl.instance.MonedaSound(this.gameObject.transform);
 		
 			SFXCtrl.instance.showCoinSparkle (this.gameObject.transform.position);
 
 			SistemaDejuego.instance.SumarBone ();
-
 
 			SistemaDejuego.instance.Collectible (this.transform);
 		

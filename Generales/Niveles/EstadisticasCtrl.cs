@@ -27,9 +27,7 @@ public class EstadisticasCtrl : MonoBehaviour {
 	}
 
 	public void Data(GameData dat){
-
 		data = dat;
-	
 	}
 
 	public void ObtenerGameObjectTextos(){
@@ -47,12 +45,9 @@ public class EstadisticasCtrl : MonoBehaviour {
 
         promedio = new GameObject[data.niveles.Length];
         promediostxt = new Text[data.niveles.Length];
-
 		for(int i = 0; i < promedio.Length-1; i++){
-
             promedio[i] = GameObject.Find ("promedio" + i);
-			promediostxt[i] = promedio[i].GetComponent<Text> ();
-
+			promediostxt[i] = promedio[i].GetComponent<Text>();
 		}
 
 	}
@@ -66,9 +61,6 @@ public class EstadisticasCtrl : MonoBehaviour {
 
 			fallos[i] = GameObject.Find ("fallos" + i);
 			fallostxt[i] = fallos[i].GetComponent<Text> ();
-           
-
-
 		}
 	}
 
@@ -119,23 +111,15 @@ public class EstadisticasCtrl : MonoBehaviour {
 
 	}
 
-
-
 	public void SetearValoresDelJuego(){
 
         for(int i = 0; i < data.niveles.Length-1; i++) {
-
-			if (i <= data.nivel) {
-
+            if (i <= data.nivel) {
 				promediostxt[i].text = data.niveles[i].promedio.ToString();
-
 				fallostxt [i].text = data.niveles [i].fallosPorNivel.ToString();
-
 				aciertostxt [i].text = data.niveles [i].aciertosPorNivel.ToString();
-
 			} 
 		}
-
 	}
 
     public void nivelActualJuego()
@@ -158,7 +142,7 @@ public class EstadisticasCtrl : MonoBehaviour {
 
         for(int i = 0; i < data.niveles.Length-1; i++){
 
-			if (i <= data.nivel) {
+            if (i <= data.nivel && data.niveles[i].status == 1) {
 			
 				total += data.niveles [i].aciertosPorNivel;
 			
@@ -197,7 +181,7 @@ public class EstadisticasCtrl : MonoBehaviour {
 
         for(int i = 0; i < data.niveles.Length-1; i++){
 
-			if (i <= data.nivel) {
+			if (i <= data.nivel ) {
 
 				total += data.niveles [i].promedio;
 

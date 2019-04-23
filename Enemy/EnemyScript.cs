@@ -160,8 +160,7 @@
             {
                 contarParaPromedio = false;
                 timeRealiseOperation += timeLeft;
-                timeLeft = 0;
-
+                 timeLeft = 0;
                 SistemaDejuego.instance.ReciboTiempoParaPromedios(timeRealiseOperation);
             }
 
@@ -300,6 +299,7 @@
     		opHabilitada = false;
             oki = false;
             tiempoCambio = maxtime;
+            DataCtrl.instance.SaveData();
 
     	}
 

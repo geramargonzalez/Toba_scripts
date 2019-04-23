@@ -31,7 +31,8 @@ public class Loading : MonoBehaviour {
 
     public void CargarTextos(){
 
-        descripciones.Add("los perros pueden detectar las emociones de las personas");
+        descripciones.Add("Los perros pueden detectar las emociones de las personas");
+        descripciones.Add("Animales Sin Hogar es un organización uruguaya que fue creada con el fin de brindar una base de datos a nivel nacional de animales perdidosy en adopción");
         descripciones.Add("La nariz de los perros son únicas, como las huellas dactilares de los humanos ..");
         descripciones.Add("Los perros tienen el mismo grado de inteligencia que posee un niño de dos años ....");
         descripciones.Add("El perro más viejo murió a los 29 años..");
@@ -47,11 +48,8 @@ public class Loading : MonoBehaviour {
         descripciones.Add("Los números que hay que multiplicar se llaman multiplicador y multiplicando, o a veces se llaman “factores”.");
         descripciones.Add("El resultado de la multiplicación se denomina “producto”.");
         descripciones.Add("Las tablas de multiplicación también se llaman la “Tabla de Pitágoras” ya que fue inventada por el matemático y filósofo Pitágoras en Grecia..");
-        descripciones.Add("La suma y la multiplicación sí tienen la propiedad asociativa. Aunque se alteren el orden de los numeros el resultado es el mismo");
+        descripciones.Add("La suma y la multiplicación tienen la propiedad asociativa. Aunque se alteren el orden de los numeros el resultado es el mismo.");
         descripciones.Add("Cambiar la forma de asociar los números en la resta sí varía el resultado. Por lo tanto la resta no tiene la propiedad asociativa. ");
-    
-    
-    
     
     }
 
@@ -61,8 +59,6 @@ public class Loading : MonoBehaviour {
         txtDesc.text = descripciones[(int)random];
         random =  Random.Range(0f, (float)imagenes.Length-1);
         imagenes[(int)random].SetActive(true);
-       
-
     }
 
   
