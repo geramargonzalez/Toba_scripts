@@ -335,41 +335,27 @@
         	}
 
 
+        	private void InstanciarEnemigoPorNivel(int posicion){
+
+        		if(gData.nivel <= 1)
+        			Instantiate(enemigos[0], posicionesEnemigos[posicion].transform.position, Quaternion.identity);
+        		else if(gData.nivel == 2)
+        			Instantiate(enemigos[1], posicionesEnemigos[posicion].transform.position, Quaternion.identity);
+        		else if(gData.nivel == 4)
+        			Instantiate(enemigos[2], posicionesEnemigos[posicion].transform.position, Quaternion.identity);
+        		else if(gData.nivel == 6)
+        			Instantiate(enemigos[3], posicionesEnemigos[posicion].transform.position, Quaternion.identity);
+        		else if(gData.nivel == 7)
+        			Instantiate(wizards[0], posicionesEnemigos[posicion].transform.position, Quaternion.identity);
+
+        	}
+
         	//Genera los Enemigos Actuales
         	public void GenerarEnemigosPorComienzo(){
 
-        		if(!gData.operaRealizadas[gData.posActualEnemigo] && gData.posActualEnemigo <= posicionesEnemigos.Length-1){   
+        		if(!gData.operaRealizadas[gData.posActualEnemigo] && gData.posActualEnemigo <= posicionesEnemigos.Length-1){
 
-
-                if(gData.nivel <= 1){
-                      
-                    Instantiate(enemigos[0], posicionesEnemigos[gData.posActualEnemigo].transform.position, Quaternion.identity);
-
-                  } else if (gData.nivel == 2)
-                    {
-
-                    Instantiate(enemigos[1], posicionesEnemigos[gData.posActualEnemigo].transform.position, Quaternion.identity);
-
-                 } else if (gData.nivel == 4)
-                    {
-
-                    Instantiate(enemigos[2], posicionesEnemigos[gData.posActualEnemigo].transform.position, Quaternion.identity);
-                   
-
-                }
-                else if (gData.nivel == 6)
-                {
-
-                    Instantiate(enemigos[3], posicionesEnemigos[gData.posActualEnemigo].transform.position, Quaternion.identity);
-                   
-
-                } else if (gData.nivel == 7)
-                {
-                    
-                    Instantiate(wizards[0], posicionesEnemigos[gData.posActualEnemigo].transform.position, Quaternion.identity);
-                   
-
-                }
+        			InstanciarEnemigoPorNivel(gData.posActualEnemigo);
 
              } 
 
@@ -435,44 +421,10 @@
 
         			pos = gData.posActualEnemigo;
 
-                    //Debug.Log("La posicion actual es " +  gData.posActualEnemigo);
-
         			if (pos <= posicionesEnemigos.Length - 1) {
 
-                        if( gData.nivel <= 1){
-                            
-                                Instantiate(enemigos[0], posicionesEnemigos[pos].transform.position, Quaternion.identity);
-                                crearnuevoTroll = false;
-                               
-                            
-                        } else if(gData.nivel == 2) {
-                            
-                                Instantiate(enemigos[1], posicionesEnemigos[pos].transform.position, Quaternion.identity);
-                                crearnuevoTroll = false;
-                                
-                            
-                        } else if (gData.nivel == 4)
-                        {
-
-                            Instantiate(enemigos[2], posicionesEnemigos[pos].transform.position, Quaternion.identity);
-                            crearnuevoTroll = false;
-                            
-
-                        }else if (gData.nivel == 6)
-                        {
-                            
-                            Instantiate(enemigos[3], posicionesEnemigos[pos].transform.position, Quaternion.identity);
-                            crearnuevoTroll = false;
-                            
-                    }else if (gData.nivel == 7)
-                    {
-                        // Se puede crear un metodo que controle, que tire un numero randomico para tener diferentes magos
-                        Instantiate(wizards[0], posicionesEnemigos[pos].transform.position, Quaternion.identity);
-                        crearnuevoTroll = false;
-
-
-                    }
-
+        				InstanciarEnemigoPorNivel(pos);
+        				crearnuevoTroll = false;
 
         			} else {
         				
@@ -596,11 +548,11 @@
 
         			psigno = "+";
 
-        		}if((int)random == 2){
+        		} else if((int)random == 2){
 
         			psigno = "-";
 
-        		} if((int)random == 3){
+        		} else if((int)random == 3){
 
         			psigno = "/";
 
@@ -694,13 +646,8 @@
                                 if (signo == 0)
                                 {
                                    if(posI * numero2 == resultado){
-                                    }
-                                       ok = true;
-                                    }
-
-                               else if (signo == 1)
-                               {
-                                
+                               ok = true;
+                            }
                                 if (posI + numero2 == resultado)
                                  {    
                                     ok = true;
@@ -842,9 +789,6 @@
                                 }
                                 else if (signo == 1)
                                 {
-
-                                  posI = numero1 + numero2;
-
                                     if (numero1 + numero2 == posI)
                                     {
                                         ok = true;
@@ -942,7 +886,7 @@
             	}
 
             	public void SetAttack(bool pAttack){
-            		attack = false;
+            		attack = pAttack;
             	}
 
             	public void SetDie(bool pDie){
@@ -1044,11 +988,11 @@
 
         			psigno = "+";
         	
-        		}if(signo == 2){
-        		
+} else if(signo == 2){
+        	
         			psigno = "-";
         		
-        		} if(signo == 3){
+        		} else if(signo == 3){
         		
         			psigno = "/";
         		
@@ -1277,17 +1221,18 @@
 
         	public void OkGenerar(){
 
-        		for(int i = 0;  i < posiciones.Count; i++){
+        		generar = true;
+
+        		for(int i = 0; i < posiciones.Count; i++){
 
         			if(tmp == posiciones[i]){
         			
         				generar = false;
+        				break;
         		
         			}
         		
         		}
-        	
-        		generar = true;
         	
         	}
 
@@ -1490,16 +1435,14 @@
               
             }
 
-
-         
-
         	public void ReciboTiempoParaPromedios(float tiempoOperacion){
                 gData.promedioGrl += (int)tiempoOperacion;
                 int numpro = gData.numParaPromedio - gData.cantidadTrolls;
-                gData.promedioGrl = gData.promedioGrl/numpro;
+                if(numpro > 0){
+                    gData.promedioGrl = gData.promedioGrl / numpro;
+                }
         	}
-
-
+s
         	public void restarVidas(){
         		CheckLives();
         	}
@@ -1666,8 +1609,6 @@
         		yield return new WaitForSeconds(2.20f);
         		SceneManager.LoadScene (gData.nivel.ToString());
         	}
-
-
 
         	public void UpdateTime(){
 
@@ -1906,6 +1847,7 @@
 
         		for (int i = 0; i < collectibles.Length; i++) {
 
+        			if (collectibles[i] == null) continue;
 
         			restadepos = collectibles [i].transform.position.x - pos.position.x;
 
@@ -1972,10 +1914,9 @@
 
         		for (int i = 0; i < collectibles.Length; i++) {
 
-        			 if (!gData.bonesBool[i]) {
+        			 if (collectibles[i] != null && !gData.bonesBool[i]) {
 
         				Instantiate (bonePrefab, collectibles[i].transform.position, Quaternion.identity);
-
 
         			}
 
@@ -1988,9 +1929,9 @@
         	//Eligo de los prefabs de los animales uno al azar para intercambiarlo con el orco
         	public GameObject RandomAnimals(){
 
-        		float ram = Random.Range(0f,animals.Length-1);
+        		int ram = Random.Range(0, animals.Length);
 
-        		GameObject animal = animals [(int)ram];
+        		GameObject animal = animals[ram];
 
         		return animal;
         	}
@@ -2178,24 +2119,12 @@
             }
 
 
-        	IEnumerator mostrarHabilidad()
+        	IEnumerator mostrarHabilidad(float duracion = 2.20f)
         	{
         		Habilidadestatico.SetActive(true);
         		animTxtMsjHabilidad.SetBool ("entrar",true);
-        		yield return new WaitForSeconds(2.20f);
+        		yield return new WaitForSeconds(duracion);
         		Habilidadestatico.SetActive(false);
-
-
-
-        	}
-
-        	IEnumerator mostrarRun()
-        	{
-        		Habilidadestatico.SetActive(true);
-        		animTxtMsjHabilidad.SetBool ("entrar",true);
-        		yield return new WaitForSeconds(2.0f);
-        		Habilidadestatico.SetActive(false);
-
         	}
 
 
@@ -2238,7 +2167,7 @@
         		ui.txtMsjgrlHabilidad.fontSize = 100;
         		ui.txtMsjgrlHabilidad.color = Color.blue;
                 ui.txtMsjgrlHabilidad.text = " ¡¡¡Sal de ahí!!! ";
-        		StartCoroutine(mostrarRun());
+        		StartCoroutine(mostrarHabilidad(2.0f));
         	}
 
         	public void MsjJumpJump(){
@@ -2246,7 +2175,7 @@
                 ui.txtMsjgrlHabilidad.fontSize = 100;
         		ui.txtMsjgrlHabilidad.color = Color.cyan;
                 ui.txtMsjgrlHabilidad.text = " ¡¡¡Sal de ahí!!! ";
-        		StartCoroutine(mostrarRun());
+        		StartCoroutine(mostrarHabilidad(2.0f));
         	}
 
 
